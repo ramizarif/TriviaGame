@@ -1,0 +1,9 @@
+- use this document to document the work you have done so far
+
+Ramiz: 
+- created repo
+- created sportsquestions.txt which will hold all the questions for the sports category
+    - only adding ten questions for now, but we can add more later, right now using for testing
+- The current format is Question,RightAnswer,WrongAnswer,WrongAnswer,WrongAnswer
+ - Also I made the trivia.py file and described some high level functions that will definetly be needed to get the game functional
+    - these functions can be done independently so there should be no blockages and anyone can get started on any of them

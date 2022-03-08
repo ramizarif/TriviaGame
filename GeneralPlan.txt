@@ -1,0 +1,15 @@
+- 3 txt files with 3 different categories
+- In the main menu choose which categories you want to pull questions from
+    - you can do all the categories, two, or just one
+- pull random questions from all of the categories selected
+- in single player the player has 3 lives and tries to get as many questions right as possible
+    - high score is saved in a txt file so that it can be saved even after the program ends 
+- in multiplayer:
+    - it runs through one player's run (one life) and they see how many answers they can get
+    - then goes to the second player and does the same thing, but shows the target score
+    - if the second player exceeds the target score without getting a question wrong they win
+
+this will all run in a gui of some sort - we can make it look pretty 
+- not exactly sure what to use for the graphics though, whatever it is it probably has to run on dr thomas' computer with no set up... maybe
+- for now though we can get all these parts working and then worry about the gui later
+    - just use print statements for now to make sure everything is working as intended
