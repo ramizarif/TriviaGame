@@ -1,7 +1,10 @@
+# def GameRules();
+    # Outputs Rules of the game and categories
 
-
-#def ChooseCategories():
+def ChooseCategories():
     #this function will ask the user which categories the user wants added to the game and return a list of them
+    choosenCategory = input("Please Select A Category: ")
+    return choosenCategory
 
 #def PullRandomQuestion(categoryList):
     #this function will randomly pick a question and return it from the txt files and categories chosen by the user (will have to use the categories
