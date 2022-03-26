@@ -7,3 +7,7 @@ Ramiz:
 - The current format is Question,RightAnswer,WrongAnswer,WrongAnswer,WrongAnswer
  - Also I made the trivia.py file and described some high level functions that will definetly be needed to get the game functional
     - these functions can be done independently so there should be no blockages and anyone can get started on any of them
+
+Andrea:
+   - crearted choose category function
+   - added game rules function
