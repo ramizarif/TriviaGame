@@ -11,3 +11,6 @@ Ramiz:
 Andrea:
    - crearted choose category function
    - added game rules function
+   - Added Play Game function
+   - Aded rules print out
+   - Add GameType selection and handling in PlayGame
