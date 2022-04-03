@@ -14,3 +14,4 @@ Andrea:
    - Added Play Game function
    - Aded rules print out
    - Add GameType selection and handling in PlayGame
+   - Moved python to c++
