@@ -5,8 +5,8 @@
 //  Created by Andrea Hall on 4/10/22.
 //
 
-#ifndef test_hpp
-#define test_hpp
+#ifndef TriviaHeader_hpp
+#define TriviaHeader_hpp
 
 #include <stdio.h>
 #include <iostream>
