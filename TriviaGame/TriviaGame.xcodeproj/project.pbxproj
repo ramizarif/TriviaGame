@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		D79C573D27F9FE8100AAD957 /* TriviaGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TriviaGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79C574027F9FE8100AAD957 /* TriviaGame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TriviaGame.cpp; sourceTree = "<group>"; };
+		D79C578428034F8E00AAD957 /* TriviaHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TriviaHeader.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				D79C574027F9FE8100AAD957 /* TriviaGame.cpp */,
+				D79C578428034F8E00AAD957 /* TriviaHeader.hpp */,
 			);
 			path = TriviaGame;
 			sourceTree = "<group>";
