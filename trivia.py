@@ -1,3 +1,5 @@
+# No longer using PY, changing project to C++ per Project 2 Check in
+
 import random
 from re import I
 from unicodedata import category
