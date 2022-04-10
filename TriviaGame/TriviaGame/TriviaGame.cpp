@@ -7,8 +7,12 @@
 
 #include <iostream>
 #include <vector>
+#include "TriviaHeader.hpp"
 
 using namespace std;
+
+// Global var categories (cats) since this is unchanging
+
 
 void GameRules(){
 // Outputs Rules of the game and categories
@@ -22,27 +26,32 @@ void GameRules(){
     cout << endl;
 }
 
-string GameType(){
-    string gtype;
-    cout << "Please Select enter 'Single' for one player or 'Multi' for two players: ";
-    cin >> gtype;
-    return gtype;
+int GameType(){
+    int players;
+    cout << "Please Select enter the number of players: ";
+    cin >> players;
+    return players;
 };
 
-string ChooseCategories(){
-    string choosenCategory;
+void PrintCategories(){
+    cout << "The Categories are: " << endl;
+    for (int i = 0; i < cats.size(); i++) {
+        cout << to_string(i) << ": " << cats.at(i) << endl;
+    }
+}
+
+int ChooseCategories(){
+    int choosenCategory;
     cout << "Please Select A Category: ";
     cin >> choosenCategory;
     return choosenCategory;
 };
 
-vector<string> PullRandomQuestion(vector<string>categories){
+vector<string> PullRandomQuestion(int cat_number){
 //this function will randomly pick a question and return it from the txt files and categories chosen by the user (will have to use the categories
 //     chosen from the 'ChooseCategories' function)
 //        #additionally this function will have to scramble the answers and display them in a different order than they come in the txt file
 //        also it should save any already asked questions to make sure there are no duplicate questions being asked
-
-
     vector<string> question;
     
     return question;
@@ -51,29 +60,44 @@ vector<string> PullRandomQuestion(vector<string>categories){
 void CheckIFHighScoreIsBeaten(int end_game_score){
 //this function will open and read the highscore.txt file and see if the score at the end of the game is higher than it if it is go to the
 // 'SaveHighScore' Function
+    
 };
 
 void SaveHighScore(int new_high_score){
 //this function will take a new high score and replace the highscore in the highscore.txt file
 };
 
-void SinglePlayerMain(){
-    cout << "Got to Single Player" << endl;
-};
+void StartGame(int players) {
+    AddCategories();
+    Game g;
+    g.number_of_players = players;
+    vector<Player> game_players;
+    
+    game_players.resize(g.number_of_players);
+    for(int i = 0; i < players; i++) {
+    //Create each player for the game
+        string p_name = "Player " + to_string(i + 1);
+        game_players[i].name = p_name;
+        game_players[i].current_game = g;
+    }
+    
+    PrintCategories();
+    
+    for(int i = 0; i < game_players.size(); i++){
+        cout << game_players.at(i).name << " please choose a category by number: " << endl;
+        vector<string> question;
+        question = PullRandomQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
+    }
+    
+}
 
-void MultiPlayerMain(){
-    cout << "Got to Multiple Player" << endl;
-};
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     GameRules();
-        
-    if(GameType() == "Single"){
-        SinglePlayerMain();
-    } else {
-        MultiPlayerMain();
-    }
+    int players = GameType();
+    StartGame(players);
     
     return 0;
 }
