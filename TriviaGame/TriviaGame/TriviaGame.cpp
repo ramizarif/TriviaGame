@@ -11,9 +11,6 @@
 
 using namespace std;
 
-// Global var categories (cats) since this is unchanging
-
-
 void GameRules(){
 // Outputs Rules of the game and categories
     cout <<"Welcome to Team 21's Trivia Game!" << endl;
@@ -33,6 +30,10 @@ int GameType(){
     return players;
 };
 
+void CreateCategoriesAndQuestions(){
+    // TODO: Add Categories to class
+    // TODO: Loop through csvs and create new Question from Question class and add it to category
+}
 void PrintCategories(){
     cout << "The Categories are: " << endl;
     for (int i = 0; i < cats.size(); i++) {
@@ -84,11 +85,14 @@ void StartGame(int players) {
     PrintCategories();
     
     for(int i = 0; i < game_players.size(); i++){
+        // Goes through each player and asks question
         cout << game_players.at(i).name << " please choose a category by number: " << endl;
         vector<string> question;
         question = PullRandomQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
+        // TODO: Ask  question with answers shuffled
+        // TODO: run game_player.at(i).question_correct or game_player.at(i).question incorrect
     }
-    
+     // TODO: End Game, declare winner, state final score, record high score if necessary
 }
 
 

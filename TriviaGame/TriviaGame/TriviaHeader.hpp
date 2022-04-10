@@ -35,12 +35,26 @@ public:
     }
 };
 
+class Question {
+public:
+    string category_name;
+    string file_name;
+    string question;
+    string answer1;
+    string answewr2;
+    string answer3;
+    string answer4;
+    bool asked;
+};
+
 class Categories {
 public:
     string category;
-    vector<int> asked_questions;
     vector<Game> game;
-    
+    vector<Question> questions;
+    void addToCategory(Question q){
+        questions.push_back(q);
+    }
 };
 
 class Player {
