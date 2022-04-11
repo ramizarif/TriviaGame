@@ -31,13 +31,15 @@ public:
 class Question {
 public:
     string category_name;
-    string file_name;
     string question;
     string answer1;
-    string answewr2;
+    string answer2;
     string answer3;
     string answer4;
     bool asked;
+    Question(){
+        
+    }
 };
 
 class Categories {
