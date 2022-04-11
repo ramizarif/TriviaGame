@@ -13,13 +13,6 @@
 #include <vector>
 
 using namespace std;
-// Globals
-vector<string> cats;
-
-void AddCategories(){
-    cats.push_back("Music");
-    cats.push_back("Sports");
-}
 
 class Game {
 public:
@@ -50,11 +43,19 @@ public:
 class Categories {
 public:
     string category;
-    vector<Game> game;
+    string file_location;
+    Game game;
     vector<Question> questions;
+    vector<Question> unpicked_questions;
     void addToCategory(Question q){
         questions.push_back(q);
     }
+    Categories(string c, Game g, string f){
+        category = c;
+        game = g;
+        file_location = f;
+    }
+    
 };
 
 class Player {
@@ -63,13 +64,14 @@ private:
 public:
     string name;
     float total_score = 0;
+    int lives;
     Game current_game;
   
     void question_correct(){
         total_score += 1;
     }
     void question_incorrect(){
-        total_score -= 1;
+        lives -= 1;
     }
     static vector<Player*> getAllPlayers(){
       return plyrList;
@@ -77,6 +79,7 @@ public:
     Player(string n, Game g ) {
       name = n;
      current_game = g;
+        lives = 3;
      }
     Player(){
         

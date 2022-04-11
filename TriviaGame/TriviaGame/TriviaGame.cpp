@@ -10,6 +10,8 @@
 #include "TriviaHeader.hpp"
 
 using namespace std;
+// Globals
+vector<Categories> cats;
 
 void GameRules(){
 // Outputs Rules of the game and categories
@@ -30,14 +32,22 @@ int GameType(){
     return players;
 };
 
-void CreateCategoriesAndQuestions(){
-    // TODO: Add Categories to class
-    // TODO: Loop through csvs and create new Question from Question class and add it to category
+void CreateCategories(Game &g){
+    Categories music = Categories("Music", g, "moviequestions.csv");
+    Categories sports = Categories("Sports", g, "sportsquestions.csv");
+    
+    cats.push_back(music);
+    cats.push_back(sports);
+}
+void CreateQuestions(Game &g){
+    CreateCategories(g);
+    // TODO: Loop through each category, open CSV, create questions in question class, category.add_to_category(question)
+    
 }
 void PrintCategories(){
     cout << "The Categories are: " << endl;
     for (int i = 0; i < cats.size(); i++) {
-        cout << to_string(i) << ": " << cats.at(i) << endl;
+        cout << to_string(i) << ": " << cats.at(i).category << endl;
     }
 }
 
@@ -69,9 +79,9 @@ void SaveHighScore(int new_high_score){
 };
 
 void StartGame(int players) {
-    AddCategories();
     Game g;
     g.number_of_players = players;
+    CreateQuestions(g);
     vector<Player> game_players;
     
     game_players.resize(g.number_of_players);
@@ -80,17 +90,20 @@ void StartGame(int players) {
         string p_name = "Player " + to_string(i + 1);
         game_players[i].name = p_name;
         game_players[i].current_game = g;
+        game_players[i].lives = 3;
     }
     
     PrintCategories();
     
-    for(int i = 0; i < game_players.size(); i++){
+    for(int i = 0; i < g.number_of_players; i++){
         // Goes through each player and asks question
-        cout << game_players.at(i).name << " please choose a category by number: " << endl;
-        vector<string> question;
-        question = PullRandomQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
-        // TODO: Ask  question with answers shuffled
-        // TODO: run game_player.at(i).question_correct or game_player.at(i).question incorrect
+        while (game_players.at(i).lives > 0) {
+            cout << game_players.at(i).name << " please choose a category by number: " << endl;
+            vector<string> question;
+            question = PullRandomQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
+            // TODO: Ask  question with answers shuffled
+            // TODO: run game_player.at(i).question_correct or game_player.at(i).question incorrect
+        }
     }
      // TODO: End Game, declare winner, state final score, record high score if necessary
 }
