@@ -2,7 +2,6 @@
 //  TriviaHeader.hpp
 //  TriviaGame
 //
-//  Created by Andrea Hall on 4/10/22.
 //
 
 #ifndef TriviaHeader_hpp
@@ -48,9 +47,12 @@ public:
     string file_location;
     Game game;
     vector<Question> questions;
-    vector<Question> unpicked_questions;
+ 
     void addToCategory(Question q){
         questions.push_back(q);
+    }
+    int random(){
+        return 0;
     }
     Categories(string c, Game g, string f){
         category = c;
@@ -87,8 +89,5 @@ public:
         
     }
 };
-
-
-
 
 #endif /* TriviaHeader_hpp */

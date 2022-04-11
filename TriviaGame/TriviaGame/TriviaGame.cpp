@@ -1,8 +1,7 @@
 //
-//  main.cpp
+//  TriviaGame.cpp
 //  TriviaGame
 //
-//  Created by Andrea Hall on 4/3/22.
 //
 
 #include <iostream>
@@ -73,7 +72,6 @@ void CreateQuestions(){
             new_q.answer3 =qs[j][3];
             new_q.answer4 =qs[j][4];
             cats[i].addToCategory(new_q);
-            
         }
     } // Ends category for loop
 }
@@ -91,16 +89,6 @@ int ChooseCategories(){
     return choosenCategory;
 };
 
-vector<string> PullRandomQuestion(int cat_number){
-//this function will randomly pick a question and return it from the txt files and categories chosen by the user (will have to use the categories
-//     chosen from the 'ChooseCategories' function)
-//        #additionally this function will have to scramble the answers and display them in a different order than they come in the txt file
-//        also it should save any already asked questions to make sure there are no duplicate questions being asked
-    vector<string> question;
-    
-    return question;
-};
-
 void AddPlayers() {
     game_players.resize(g.number_of_players);
     for(int i = 0; i < g.number_of_players; i++) {
@@ -110,6 +98,23 @@ void AddPlayers() {
         game_players[i].current_game = g;
         game_players[i].lives = 3;
     }
+}
+
+bool PlayerAlive () {
+    bool alive = false;
+    for(int i = 0; i < g.number_of_players; i++){
+        if ( game_players.at(i).lives > 0 ) {
+            alive = true;
+        }
+    }
+    return alive;
+};
+
+void AskQuestion(int current_cat){
+    int rand = 0;
+//    int answer_rand;
+    
+    cout << cats[current_cat].questions[rand].question << endl;
 }
 
 void CheckIFHighScoreIsBeaten(int end_game_score){
@@ -122,32 +127,36 @@ void SaveHighScore(int new_high_score){
 //this function will take a new high score and replace the highscore in the highscore.txt file
 };
 
-void PlayGame(int players) {
+void PlayGame() {
+    while (PlayerAlive()) {
+        for(int i = 0; i < g.number_of_players; i++){
+            // Goes through each player and asks question untill they lose 3 lives than goes to next player
+            if (game_players.at(i).lives > 0) {
+                cout << game_players.at(i).name << " please choose a category by number: " << endl;
+                AskQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
+                // TODO: Ask question with answers shuffled
+                // TODO: run game_player.at(i).question_correct or game_player.at(i).question incorrect
+                // TODO: Mark question as asked
+            }
+        }
+    }
+    
+     // TODO: End Game, declare winner, state final score, record high score if necessary
+}
+
+void StartGame(int players){
     g.number_of_players = players;
     CreateCategories();
     CreateQuestions();
     AddPlayers();
     PrintCategories();
-
-    for(int i = 0; i < g.number_of_players; i++){
-        // Goes through each player and asks question untill they lose 3 lives than goes to next player
-        while (game_players.at(i).lives > 0) {
-            cout << game_players.at(i).name << " please choose a category by number: " << endl;
-            vector<string> question;
-            question = PullRandomQuestion(ChooseCategories()); // Asks Player to choose a category and than pulls a random question
-            // TODO: Ask question with answers shuffled
-            // TODO: run game_player.at(i).question_correct or game_player.at(i).question incorrect
-        }
-    }
-     // TODO: End Game, declare winner, state final score, record high score if necessary
+    PlayGame();
 }
 
-
 int main(int argc, const char * argv[]) {
-    // insert code here...
     GameRules();
     int players = GameType();
-    PlayGame(players);
+    StartGame(players);
     
     return 0;
 }
