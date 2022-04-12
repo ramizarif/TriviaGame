@@ -31,7 +31,7 @@ class Question {
 public:
     string category_name;
     string question;
-    string answer1;
+    string correct_answer;
     string answer2;
     string answer3;
     string answer4;
