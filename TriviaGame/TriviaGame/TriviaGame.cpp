@@ -111,11 +111,10 @@ bool PlayerAlive () {
 };
 
 bool AskQuestion(int current_cat){
-    bool correct;
-    int rand = 0;
-    // TODO: Feed rand to pick random question where asked = false
+    int rand = 0;  // TODO: Feed rand to pick random question where asked = false
 //    int answer_rand;
     int selected_answer;
+    bool correct;
     vector<string> options;
     options.push_back(cats[current_cat].questions[rand].correct_answer);
     options.push_back(cats[current_cat].questions[rand].answer2);
@@ -177,7 +176,6 @@ void PlayGame() {
         }
     }
     FinalGameCalculations();
-     
 }
 
 void StartGame(int players){
