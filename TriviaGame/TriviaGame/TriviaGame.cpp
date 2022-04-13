@@ -28,6 +28,7 @@ void GameRules(){
 }
 
 int GameType(){
+// Gets the number of players
     int players;
     cout << "Please Select enter the number of players: ";
     cin >> players;
@@ -35,6 +36,7 @@ int GameType(){
 };
 
 void CreateCategories(){
+    // Creates categories in class and adds them to global vector
     Categories music = Categories("Music", g, "moviequestions.csv");
     Categories sports = Categories("Sports", g, "sportsquestions.csv");
     
@@ -42,6 +44,7 @@ void CreateCategories(){
     cats.push_back(sports);
 }
 void CreateQuestions(){
+    // Gets questions from csvs and adds them to the questions class and the appropriate category class
     for (int i = 0; i < cats.size(); i++) {
         vector<vector<string>> qs;
         vector<string> current_row;
@@ -76,6 +79,7 @@ void CreateQuestions(){
     } // Ends category for loop
 }
 void PrintCategories(){
+    // Print categories for player
     cout << "The Categories are: " << endl;
     for (int i = 0; i < cats.size(); i++) {
         cout << to_string(i) << ": " << cats.at(i).category << endl;
@@ -83,6 +87,7 @@ void PrintCategories(){
 }
 
 int ChooseCategories(){
+    // Has Player choose category
     int choosenCategory;
     cout << "Please Select A Category: ";
     cin >> choosenCategory;
@@ -90,6 +95,8 @@ int ChooseCategories(){
 };
 
 void AddPlayers() {
+    // Dynamically adds players based on input
+    // Default name is Player + number
     game_players.resize(g.number_of_players);
     for(int i = 0; i < g.number_of_players; i++) {
     //Create each player for the game
@@ -101,6 +108,7 @@ void AddPlayers() {
 }
 
 bool PlayerAlive () {
+    // Checkst to see if any players have lives left
     bool alive = false;
     for(int i = 0; i < g.number_of_players; i++){
         if ( game_players.at(i).lives > 0 ) {
@@ -111,6 +119,7 @@ bool PlayerAlive () {
 };
 
 bool AskQuestion(int current_cat){
+    // Asks player question
     int rand = 0;  // TODO: Feed rand to pick random question where asked = false
 //    int answer_rand;
     int selected_answer;
@@ -141,6 +150,8 @@ bool AskQuestion(int current_cat){
 }
 
 void HandleAnswer(bool correct, Player &player) {
+    // Adds points if correct or takes a live if wrong
+    // Lets player know if they got the queststion right or wrong
     if (correct) {
         player.question_correct();
         cout << "Congrats " << player.name << " you answered correctly" << endl;
@@ -179,6 +190,7 @@ void PlayGame() {
 }
 
 void StartGame(int players){
+    // Intializes game by filling in classes
     g.number_of_players = players;
     CreateCategories();
     CreateQuestions();
