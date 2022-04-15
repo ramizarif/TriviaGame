@@ -13,6 +13,14 @@
 
 using namespace std;
 
+void NewGame();
+
+class HighScore {
+public:
+    int high_score = 0;
+    string player_name;
+};
+
 class Game {
 public:
     int number_of_players;

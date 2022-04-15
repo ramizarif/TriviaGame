@@ -18,6 +18,7 @@ using namespace std;
 vector<Categories> cats;
 vector<Player> game_players;
 Game g;
+HighScore h;
 
 void GameRules(){
 // Outputs Rules of the game and categories
@@ -161,7 +162,7 @@ bool AskQuestion(int current_cat){
     
     // Shuffle Answers
     auto random = default_random_engine {};
-    random.seed(std::chrono::system_clock::now().time_since_epoch().count());
+    random.seed(chrono::system_clock::now().time_since_epoch().count());
     shuffle(begin(options), end(options), random);
     
     // Displaying Options
@@ -194,19 +195,33 @@ void HandleAnswer(bool correct, Player &player) {
     }
 }
 
-void FinalGameCalculations(){
-    // TODO: End Game, declare winner, state final score, record high score if necessary
-    cout << "End of Game" << endl;
-}
-void CheckIFHighScoreIsBeaten(int end_game_score){
-//this function will open and read the highscore.txt file and see if the score at the end of the game is higher than it if it is go to the
-// 'SaveHighScore' Function
-    
+void CheckIFHighScoreIsBeaten(int winning_player){
+    if (h.high_score < game_players.at(winning_player).total_score) {
+        h.high_score = game_players.at(winning_player).total_score;
+        cout << " You beat the high score!" << endl;
+        cout << "Please enter your name: " << endl;
+        cin >> h.player_name;
+    }
 };
 
-void SaveHighScore(int new_high_score){
-//this function will take a new high score and replace the highscore in the highscore.txt file
-};
+void FinalGameCalculations(){
+    int highest_score = 0;
+    int winning_player = 0;
+    for(int i = 0; i < g.number_of_players; i++){
+        cout << game_players.at(i).name << "'s final score is " << game_players.at(i).total_score << endl;
+        if (game_players.at(i).total_score > highest_score){
+            highest_score = game_players.at(i).total_score;
+            winning_player = i;
+        }
+    }
+    
+    if (g.number_of_players > 1) {
+        cout << "Congats " << game_players.at(winning_player).name << "You Won!" << endl;
+    }
+    
+    CheckIFHighScoreIsBeaten(winning_player);
+    cout << "Thank you for playing Team 21's Trivia Game!" << endl;
+}
 
 void PlayGame() {
     while (PlayerAlive()) {
@@ -222,6 +237,8 @@ void PlayGame() {
         }
     }
     FinalGameCalculations();
+    NewGame();
+    
 }
 
 void StartGame(int players){
@@ -231,6 +248,19 @@ void StartGame(int players){
     CreateQuestions();
     AddPlayers();
     PlayGame();
+}
+
+void NewGame(){
+    string ng;
+    cout << "Would you like to start a new game? Y or N " << endl;
+    cin >> ng;
+    
+    if(ng == "Y") {
+        int players = GameType();
+        StartGame(players);
+    } else {
+        cout << "Thank you for playing Team 21's Triva Game!" << endl;
+    }
 }
 
 int main(int argc, const char * argv[]) {
