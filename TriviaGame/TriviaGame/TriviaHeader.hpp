@@ -55,7 +55,7 @@ public:
 };
 
 class Categories {
-    // Creates our categories which our questions fall into
+    // Creates our categories that our questions fall into
 public:
     string category;
     string file_location;
@@ -88,7 +88,7 @@ public:
         total_score += 1;
     }
     void question_incorrect(){
-        lives -= 1; // Loses a live for each incorrect answer
+        lives -= 1; // Loses a life for each incorrect answer
     }
     Player(string n, Game g ) {
       name = n;

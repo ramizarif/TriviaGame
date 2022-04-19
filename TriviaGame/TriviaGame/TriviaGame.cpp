@@ -8,10 +8,10 @@
         // Lists the rules of the game
     // Game Type:
         // Asks the user how many players are playing the game
-        // returns that number
+        // Returns that number
     // Create Category:
         // Hard coded with our current available categories and location of files
-        // creates with in category class for easy access
+        // Creates with in category class for easy access
         // Adds category to game.cats
     // Create Question:
         // For every category, opens file and creates questions in that category
@@ -20,7 +20,7 @@
        // Prints the name of the current categores to console
     // Choose Categories:
       // Asks Current Player to choose category for question
-      // returns integer of category location in Categories vector
+      // Returns integer of category location in Categories vector
    // Add Players:
       // Takes game.number_of_players and creates that number of players for the game
       // Adds players to game.players vector for easier access
@@ -35,7 +35,7 @@
      // Shuffles available answers using current time as seed
      // Lists Possible answer with number
      // Asks player to choose number of correct answer
-     // Checks if its write or wrong sends to HandleAnswer
+     // Checks if its right or wrong sends to HandleAnswer
    // Handle Answer:
      // Lets player know if they got it right or wrong
      // Adds point or subtracts life by calling player class method
@@ -71,7 +71,7 @@ Game g;
 HighScore h;
 
 void GameRules(){
-// Outputs Rules of the game and categories
+// Outputs Rules of the game
     cout <<"Welcome to Team 21's Trivia Game!" << endl;
     cout << endl;
     cout <<"You will have three lives, each wrong answer loses a life each right answer gives you one point!" << endl;
@@ -90,7 +90,7 @@ int GameType(){
 };
 
 void CreateCategories(){
-    // Creates categories in class and adds them to global vector
+    // Creates categories in class and adds them to game cats vector
     Categories music = Categories("Movies", g, "moviequestions.csv");
     Categories sports = Categories("Sports", g, "sportsquestions.csv");
     
@@ -104,6 +104,7 @@ void CreateQuestions(){
         vector<string> current_row;
         string line;
         string item;
+        g.cats[i].questions = {};
         
         fstream file (g.cats.at(i).file_location);
         if (file.is_open()) {
@@ -151,6 +152,7 @@ int ChooseCategories(){
 void AddPlayers() {
     // Dynamically adds players based on input
     // Default name is Player + number
+    g.players = {};
     g.players.resize(g.number_of_players);
     for(int i = 0; i < g.number_of_players; i++) {
     //Create each player for the game
@@ -162,7 +164,7 @@ void AddPlayers() {
 }
 
 bool PlayerAlive () {
-    // Checkst to see if any players have lives left
+    // Checks to see if any players have lives left
     bool alive = false;
     for(int i = 0; i < g.number_of_players; i++){
         if ( g.players.at(i).lives > 0 ) {
@@ -182,7 +184,6 @@ bool AskQuestion(int current_cat){
     // Asks player question
     int rand = 0;
     bool found_question = false;
-//    int answer_rand;
     int selected_answer;
     bool correct;
     vector<string> options;
@@ -234,7 +235,7 @@ bool AskQuestion(int current_cat){
 }
 
 void HandleAnswer(bool correct, Player &player) {
-    // Adds points if correct or takes a live if wrong
+    // Adds points if correct or takes a life if wrong
     // Lets player know if they got the queststion right or wrong
     if (correct) {
         player.question_correct();
@@ -293,6 +294,8 @@ void PlayGame() {
 
 void StartGame(int players){
     // Intializes game by filling in classes
+    g.cats = {};
+    
     g.number_of_players = players;
     CreateCategories();
     CreateQuestions();
