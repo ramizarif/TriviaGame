@@ -273,7 +273,6 @@ void FinalGameCalculations(){
     }
     
     CheckIFHighScoreIsBeaten(winning_player);
-    cout << "Thank you for playing Team 21's Trivia Game!" << endl;
 }
 
 void PlayGame() {
@@ -297,7 +296,7 @@ void PlayGame() {
 void StartGame(int players){
     // Intializes game by filling in classes
     g.cats = {};
-    
+
     g.number_of_players = players;
     CreateCategories();
     CreateQuestions();
