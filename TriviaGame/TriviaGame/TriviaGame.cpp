@@ -93,9 +93,11 @@ void CreateCategories(){
     // Creates categories in class and adds them to game cats vector
     Categories music = Categories("Movies", g, "moviequestions.csv");
     Categories sports = Categories("Sports", g, "sportsquestions.csv");
+    Categories pop = Categories("Pop Culture", g, "popculturequestions.csv");
     
     g.cats.push_back(music);
     g.cats.push_back(sports);
+    g.cats.push_back(pop);
 }
 void CreateQuestions(){
     // Gets questions from csvs and adds them to the questions class and the appropriate category class
