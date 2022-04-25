@@ -69,6 +69,7 @@ using namespace std;
 // Globals
 Game g;
 HighScore h;
+vector<Categories> cats;
 
 void GameRules(){
 // Outputs Rules of the game
@@ -95,20 +96,20 @@ void CreateCategories(){
     Categories sports = Categories("Sports", g, "sportsquestions.csv");
     Categories pop = Categories("Pop Culture", g, "popculturequestions.csv");
     
-    g.cats.push_back(music);
-    g.cats.push_back(sports);
-    g.cats.push_back(pop);
+    cats.push_back(music);
+    cats.push_back(sports);
+    cats.push_back(pop);
 }
 void CreateQuestions(){
     // Gets questions from csvs and adds them to the questions class and the appropriate category class
-    for (int i = 0; i < g.cats.size(); i++) {
+    for (int i = 0; i < cats.size(); i++) {
         vector<vector<string>> qs;
         vector<string> current_row;
         string line;
         string item;
-        g.cats[i].questions = {};
+        cats[i].questions = {};
         
-        fstream file (g.cats.at(i).file_location);
+        fstream file (cats.at(i).file_location);
         if (file.is_open()) {
             while (getline(file, line)) {
                 current_row.clear();
@@ -124,22 +125,22 @@ void CreateQuestions(){
         
         for (int j = 0; j < qs.size(); j++) {
             Question new_q;
-            new_q.category_name = g.cats[i].category;
+            new_q.category_name = cats[i].category;
             new_q.asked = false;
             new_q.question = qs[j][0];
             new_q.correct_answer =qs[j][1];
             new_q.answer2 =qs[j][2];
             new_q.answer3 =qs[j][3];
             new_q.answer4 =qs[j][4];
-            g.cats[i].addToCategory(new_q);
+            cats[i].addToCategory(new_q);
         }
     } // Ends category for loop
 }
 void PrintCategories(){
     // Print categories for player
     cout << "The Categories are: " << endl;
-    for (int i = 0; i < g.cats.size(); i++) {
-        cout << to_string(i) << ": " << g.cats.at(i).category << endl;
+    for (int i = 0; i < cats.size(); i++) {
+        cout << to_string(i) << ": " << cats.at(i).category << endl;
     }
 }
 
@@ -177,8 +178,8 @@ bool PlayerAlive () {
 };
 
 void resetQuestionsAsked(int current_cat){
-    for (int i = 0; i < g.cats[current_cat].questions.size(); i++) {
-        g.cats[current_cat].questions[i].asked = false;
+    for (int i = 0; i < cats[current_cat].questions.size(); i++) {
+        cats[current_cat].questions[i].asked = false;
     }
 }
 
@@ -191,8 +192,8 @@ bool AskQuestion(int current_cat){
     vector<string> options;
     
     // Get next un-asked question
-    for (int i = 0; i < g.cats[current_cat].questions.size(); i++) {
-        if(g.cats[current_cat].questions[i].asked == false) {
+    for (int i = 0; i < cats[current_cat].questions.size(); i++) {
+        if(cats[current_cat].questions[i].asked == false) {
             rand = i;
             found_question = true;
             break;
@@ -205,13 +206,13 @@ bool AskQuestion(int current_cat){
         // Since all have been asked reseting
         resetQuestionsAsked(current_cat);
     }
-    options.push_back(g.cats[current_cat].questions[rand].correct_answer);
-    options.push_back(g.cats[current_cat].questions[rand].answer2);
-    options.push_back(g.cats[current_cat].questions[rand].answer3);
-    options.push_back(g.cats[current_cat].questions[rand].answer4);
+    options.push_back(cats[current_cat].questions[rand].correct_answer);
+    options.push_back(cats[current_cat].questions[rand].answer2);
+    options.push_back(cats[current_cat].questions[rand].answer3);
+    options.push_back(cats[current_cat].questions[rand].answer4);
     
     // Actually asking question
-    cout << g.cats[current_cat].questions[rand].question << endl;
+    cout << cats[current_cat].questions[rand].question << endl;
     
     // Shuffle Answers
     auto random = default_random_engine {};
@@ -225,13 +226,13 @@ bool AskQuestion(int current_cat){
     cout << "Please select an answer by number: " << endl;
     cin >> selected_answer;
         
-    if (options[selected_answer] == g.cats[current_cat].questions[rand].correct_answer ) {
+    if (options[selected_answer] == cats[current_cat].questions[rand].correct_answer ) {
         correct = true;
     } else {
             correct = false;
     }
         
-    g.cats[current_cat].questions[rand].asked = true;
+    cats[current_cat].questions[rand].asked = true;
         
     return correct;
 }
@@ -295,7 +296,7 @@ void PlayGame() {
 
 void StartGame(int players){
     // Intializes game by filling in classes
-    g.cats = {};
+    cats = {};
 
     g.number_of_players = players;
     CreateCategories();
